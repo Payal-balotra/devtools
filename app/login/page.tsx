@@ -60,7 +60,7 @@ export default function LoginPage() {
         )}
 
         <div>
-          <label>Email</label>
+          <label>Enter Email</label>
           <input
             type="email"
             value={email}
