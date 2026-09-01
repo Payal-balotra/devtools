@@ -2,6 +2,8 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import {axiosClient}  from "@/src/lib/axios";
+import { AUTH_ENDPOINTS } from "@/src/endpoints";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -18,20 +20,14 @@ export default function LoginPage() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+      const response = await axiosClient.post(AUTH_ENDPOINTS.LOGIN, {
+        email,
+        password,
       });
 
-      const data = await response.json();
+      const data = await response.data;
 
-      if (!response.ok) {
+      if (!response) {
         setError(data.message || "Invalid email or password");
         return;
       }
