@@ -7,3 +7,14 @@ export const axiosClient = axios.create({
     "Content-Type": "application/json",
   },
 });
+axiosClient.interceptors.response.use(
+  (response) => response,
+
+  async (error) => {
+    if (error.response?.status === 401) {
+      await axiosClient.post("/auth/renew-token");
+    }
+
+    return Promise.reject(error);
+  }
+);
