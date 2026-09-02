@@ -3,10 +3,16 @@
 import { useState } from "react";
 import { axiosClient } from "../lib/axios";
 import { PROJECT_ENDPOINTS } from "../endpoints";
+import {useRouter} from "next/navigation";
+
+
 
 const CreateProjectForm = () => {
+    const router = useRouter();
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+
 
   const handleCreateProject = async (
     e: React.FormEvent<HTMLFormElement>
@@ -26,7 +32,9 @@ const CreateProjectForm = () => {
 
       // Clear form
       setName("");
+      
       setDescription("");
+      router.push("/dashboard");
     } catch (error) {
       console.error("Create project failed:", error);
     }

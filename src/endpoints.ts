@@ -13,4 +13,5 @@ export const PROJECT_ENDPOINTS = {
   CREATE_PROJECT: "/projects/create",
   GET_PROJECT_BY_ID: "/projects/getById",
   GET_ALL_PROJECTS: "/projects/getAll",
+  DELETE_PROJECT: "/projects/delete/:id",
 };
