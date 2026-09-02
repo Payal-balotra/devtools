@@ -11,8 +11,23 @@ axiosClient.interceptors.response.use(
   (response) => response,
 
   async (error) => {
-    if (error.response?.status === 401) {
-      await axiosClient.post("/auth/renew-token");
+    const originalRequest = error.config;
+
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      !originalRequest.url?.includes("/auth/renew-token")
+    ) {
+      originalRequest._retry = true;
+
+      try {
+        await axiosClient.post("/auth/renew-token");
+
+        return axiosClient(originalRequest);
+      } catch (refreshError) {
+        window.location.href = "/login";
+        return Promise.reject(refreshError);
+      }
     }
 
     return Promise.reject(error);

@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import {axiosClient}  from "@/src/lib/axios";
 import { AUTH_ENDPOINTS } from "@/src/endpoints";
+import Link from "next/link";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -32,8 +33,10 @@ export default function LoginPage() {
         return;
       }
 
+
+
       // Redirect after successful login
-      router.push("/dashboard");
+      router.replace("/dashboard");
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {
@@ -86,7 +89,15 @@ export default function LoginPage() {
         >
           {loading ? "Logging in..." : "Login"}
         </button>
+        <p className="text-center text-sm text-gray-500">
+          Don't have an account?{" "}
+          <Link href="/signup" className="text-blue-500 hover:underline">
+            Sign Up
+          </Link>
+        </p>
+        
       </form>
     </main>
   );
-}
+}    
+    

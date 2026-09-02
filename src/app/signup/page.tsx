@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import {axiosClient}  from "@/src/lib/axios";
 import { AUTH_ENDPOINTS } from "@/src/endpoints";
+import Link from "next/dist/client/link";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -99,6 +100,13 @@ const [name, setName] = useState("");
         >
           {loading ? "Signing up..." : "Sign Up"}
         </button>
+
+        <p className="text-center text-sm text-gray-500">
+          Do have an account?{" "}
+          <Link href="/login" className="text-blue-500 hover:underline">
+            Log In
+          </Link>
+        </p>
       </form>
     </main>
   );
