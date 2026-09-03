@@ -1,5 +1,4 @@
 import CreateProjectForm from "@/src/components/CreateProjectForm";
-import CreateProjectButton from "@/src/components/CreateProjectForm";
 
 export default function CreateProject() {
   return (

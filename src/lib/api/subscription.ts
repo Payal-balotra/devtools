@@ -6,12 +6,12 @@ export const getSubscription = async () => {
     SUBSCRIPTION_ENDPOINTS.GET_SUBSCRIPTION
   );
 
-  return response.data;
+  return response.data; 
 };
 
-export const createCheckoutSession = async () => {
+export const createCheckoutSession = async (  plan: "basic" | "pro") => {
   const response = await axiosClient.post(
-    SUBSCRIPTION_ENDPOINTS.CREATE_CHECKOUT_SESSION
+    SUBSCRIPTION_ENDPOINTS.CREATE_CHECKOUT_SESSION, { plan }
   );
 
   return response.data;

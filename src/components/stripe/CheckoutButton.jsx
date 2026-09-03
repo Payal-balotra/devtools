@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { createCheckoutSession } from "@/src/lib/api/subscription";
 
-export default function CheckoutButton() {
+export default function CheckoutButton({ plan }) {
   const [loading, setLoading] = useState(false);
 
   const handleCheckout = async () => {
     try {
       setLoading(true);
 
-      const data = await createCheckoutSession();
+      const data = await createCheckoutSession(plan);
 
       if (!data.url) {
         throw new Error("Checkout URL not received");
@@ -28,9 +28,9 @@ export default function CheckoutButton() {
     <button
       onClick={handleCheckout}
       disabled={loading}
-      className="rounded-md bg-black px-4 py-2 text-white"
+      className="w-full rounded-md bg-black px-4 py-2 text-white"
     >
-      {loading ? "Redirecting..." : "Subscribe"}
+      {loading ? "Redirecting..." : `Choose ${plan}`}
     </button>
   );
 }

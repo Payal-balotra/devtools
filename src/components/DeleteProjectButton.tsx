@@ -14,19 +14,15 @@ const DeleteProjectButton = ({ projectId }: { projectId: number }) => {
     );
 
     if (!confirmed) return;
+ try {
+    await axiosClient.delete(
+      PROJECT_ENDPOINTS.DELETE_PROJECT(projectId.toString())
+    );
 
-    try {
-      await axiosClient.delete(
-        PROJECT_ENDPOINTS.DELETE_PROJECT.replace(
-          ":id",
-          projectId.toString()
-        )
-      );
-
-      router.push("/dashboard");
-    } catch (error) {
-      console.error("Error deleting project:", error);
-    }
+    router.push("/dashboard");
+  } catch (error) {
+    console.error("Error deleting project:", error);
+  }
   };
 
   return (
