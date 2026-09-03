@@ -1,7 +1,14 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export async function getProjectById(id: string) {
+const BACKEND_URL =
+  process.env.NEXT_PUBLIC_BACKEND_URL ||
+  "http://localhost:5000/api";
+
+export async function serverApi(
+  endpoint: string,
+  options: RequestInit = {}
+) {
   const cookieStore = await cookies();
 
   const cookieHeader = cookieStore
@@ -9,31 +16,31 @@ export async function getProjectById(id: string) {
     .map(({ name, value }) => `${name}=${value}`)
     .join("; ");
 
-const response = await fetch(
-  `${process.env.NEXT_PUBLIC_BACKEND_URL}/projects/getById/${id}`,
-  {
-    headers: {
-      Cookie: cookieHeader,
-    },
-    cache: "no-store",
-  }
-);
+  const response = await fetch(
+    `${BACKEND_URL}${endpoint}`,
+    {
+      ...options,
 
+      headers: {
+        ...options.headers,
+        Cookie: cookieHeader,
+      },
 
-const body = await response.text();
-
-
-if (response.status === 401) {
-  redirect("/login");
-}
-
-if (!response.ok) {
-  throw new Error(
-    `Failed to fetch project: ${response.status} - ${body}`
+      cache: "no-store",
+    }
   );
-}
 
-return JSON.parse(body);
+  if (response.status === 401) {
+    redirect("/login");
+  }
 
- 
+  if (!response.ok) {
+    const body = await response.text();
+
+    throw new Error(
+      `API request failed: ${response.status} - ${body}`
+    );
+  }
+
+  return response.json();
 }

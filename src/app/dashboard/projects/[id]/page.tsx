@@ -1,7 +1,7 @@
 import { axiosClient } from "@/src/lib/axios";
 import { PROJECT_ENDPOINTS } from "@/src/endpoints";
 import DeleteProjectButton from "@/src/components/DeleteProjectButton";
-import { getProjectById } from "@/src/lib/server.api";
+import { serverApi } from "@/src/lib/server.api";
 
 type Props = {
   params: Promise<{
@@ -11,12 +11,19 @@ type Props = {
 
 export default async function ProjectDetails({ params }: Props) {
   const { id } = await params;
-  console.log("project id:", id); 
- const data = await getProjectById(id);
+
+  console.log("project id:", id);
+
+  const data = await serverApi(
+    PROJECT_ENDPOINTS.GET_PROJECT_BY_ID(id)
+  );
+
   const project = data.project;
+
   if (!project) {
     return <div className="p-10">Project not found</div>;
   }
+
 
 
   return (
