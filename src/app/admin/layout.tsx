@@ -16,7 +16,9 @@ export default function AdminLayout({
           <a href="/admin/users">Users</a>
           <a href="/admin/products">Products</a>
           <a href="/admin/prices">Prices</a>
+          <a href="/admin/coupons">Coupons</a>
           <a href="/admin/subscriptions">Subscriptions</a>
+          <a href="/admin/payments">Payments</a>
         </nav>
       </aside>
 
