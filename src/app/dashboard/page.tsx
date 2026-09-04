@@ -10,6 +10,7 @@ import LogoutButton from "@/src/components/LogoutButton";
 import CheckoutButton from "@/src/components/stripe/CheckoutButton";
 import ManageBillingButton from "@/src/components/stripe/ManageBillingButton";
 import PricingPage from "../pricing/page";
+import { PaymentElement } from "@stripe/react-stripe-js";
 
 export default async function Dashboard() {
   const [
@@ -56,6 +57,7 @@ export default async function Dashboard() {
 
         <LogoutButton />
       </div>
+
    
       {/* Subscription */}
 

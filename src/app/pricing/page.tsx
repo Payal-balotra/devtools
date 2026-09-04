@@ -1,6 +1,7 @@
 // app/pricing/page.tsx
 
 import CheckoutButton from "@/src/components/stripe/CheckoutButton";
+import { PaymentElement } from "@stripe/react-stripe-js";
 
 const plans = [
      {
@@ -43,6 +44,7 @@ export default function PricingPage() {
       <h1 className="text-3xl font-bold text-center">
         Choose your plan
       </h1>
+
 
       <div className="mt-10 grid gap-6 md:grid-cols-3">
         {plans.map((plan) => (

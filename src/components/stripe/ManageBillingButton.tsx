@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { createPortalSession } from "@/src/lib/api/subscription";
+import { PaymentElement } from "@stripe/react-stripe-js";
 
 export default function ManageBillingButton() {
   const [loading, setLoading] = useState(false);
@@ -25,11 +26,14 @@ export default function ManageBillingButton() {
   };
 
   return (
+     
+
     <button
       onClick={handleManageBilling}
       disabled={loading}
       className="rounded-md bg-black px-4 py-2 text-white"
     >
+      
       {loading ? "Opening..." : "Manage Billing"}
     </button>
   );
