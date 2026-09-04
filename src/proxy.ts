@@ -10,15 +10,7 @@ export async function proxy(request: NextRequest) {
   const accessToken = request.cookies.get("accessToken");
   const refreshToken = request.cookies.get("refreshToken");
 
-  console.log("PROXY:", {
-    path,
-    hasAccessToken: !!accessToken,
-    hasRefreshToken: !!refreshToken,
-  });
-
-  // Protected routes
   if (path.startsWith("/dashboard")) {
-    // No tokens at all → login
     if (!accessToken && !refreshToken) {
       return NextResponse.redirect(
         new URL("/login", request.url)

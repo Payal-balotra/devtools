@@ -25,16 +25,18 @@ export default async function Dashboard() {
       SUBSCRIPTION_ENDPOINTS.GET_SUBSCRIPTION
     ),
   ]);
-
+  let isAdmin = false;
   const user = userResponse.user;
 
   const projects = projectsResponse.projects;
 
-  const subscription =
-    subscriptionResponse.subscription;
+  const subscription = subscriptionResponse.subscription;
 
-  const isSubscribed =
-    subscription?.status === "active";
+  const isSubscribed = subscription?.status === "active";
+
+  if(user.role === "admin"){
+      isAdmin = true;
+  }
 
   return (
     <div className="min-h-screen p-10">
@@ -54,8 +56,7 @@ export default async function Dashboard() {
 
         <LogoutButton />
       </div>
-
-
+   
       {/* Subscription */}
 
       <div className="mt-10 rounded-lg border p-6">
@@ -113,6 +114,7 @@ export default async function Dashboard() {
 
       </div>
 
+          
 
       {/* Projects Header */}
 
